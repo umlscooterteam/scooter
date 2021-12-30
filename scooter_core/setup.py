@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'scooter'
+package_name = 'scooter_core'
 
 setup(
     name=package_name,
@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'scooter = scooter.scooter:main'
+            'scooter_core = scooter_core.scooter_core:main'
         ],
     },
 )
