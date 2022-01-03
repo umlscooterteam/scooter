@@ -13,13 +13,14 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='diana',
-    maintainer_email='diana@todo.todo',
+    maintainer='Sam Laderoute',
+    maintainer_email='laderoute.samuel@gmail.com',
     description='TODO: Package description',
     license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'get_cloud_service = scooter_perception.get_cloud:main'
         ],
     },
 )

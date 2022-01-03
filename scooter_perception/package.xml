@@ -4,7 +4,7 @@
   <name>scooter_perception</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="diana@todo.todo">diana</maintainer>
+  <maintainer email="laderoute.samuel@gmail.com">Sam Laderoute</maintainer>
   <license>TODO: License declaration</license>
 
   <depend>rclpy</depend>
