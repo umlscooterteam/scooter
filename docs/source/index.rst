@@ -8,7 +8,7 @@ Welcome to Scooter 2.0's documentation!
 
 :Authors:
    Patrick Hoey,
-   Sasha Wilkerson,
+   Sasha Wilkinson,
    Sam Laderoute
 
 .. mdinclude:: ../../README.md
