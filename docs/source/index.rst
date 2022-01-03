@@ -11,7 +11,6 @@ Welcome to Scooter 2.0's documentation!
    Sasha Wilkinson,
    Sam Laderoute
 
-`Latest Version of Docs <https://scooter.readthedocs.io/>`_
 
 .. mdinclude:: ../../README.md
 

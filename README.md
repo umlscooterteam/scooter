@@ -1,5 +1,6 @@
 ---
 # Scooter 2.0 - ReadMe
+[Latest Version of Docs](https://scooter.readthedocs.io/)
 
 --- 
 
