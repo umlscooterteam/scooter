@@ -6,7 +6,7 @@ class State:
         Functionality for a state can be implemented by overriding this function
         :param kwargs: Placeholder for any context that needs to be passed to the state
         :return: The next state
-        :rtype: State
+        :rtype: :class: `state.State`
         """
         pass
 
