@@ -17,10 +17,11 @@ import sys
 # sys.path.insert(0, os.path.abspath('.'))
 # print(os.path.abspath('../../scooter_core/scooter_core'))
 # sys.path.insert(0, os.path.abspath('../../scooter_core/scooter_core'))
-sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('..'))
-sys.path.insert(0, os.path.abspath('../..'))
+# sys.path.insert(0, os.path.abspath('.'))
+# sys.path.insert(0, os.path.abspath('..'))
+# sys.path.insert(0, os.path.abspath('../..'))
 sys.path.insert(0, os.path.abspath('../../scooter_core'))
+sys.path.insert(0, os.path.abspath('../../scooter_fsm'))
 
 # -- Project information -----------------------------------------------------
 

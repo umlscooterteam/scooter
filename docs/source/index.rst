@@ -11,17 +11,17 @@ Welcome to Scooter 2.0's documentation!
    Sasha Wilkerson,
    Sam Laderoute
 
+.. mdinclude:: ../../README.md
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Modules:
 
    modules/modules.rst
 
 
 
 
-.. mdinclude:: ../../README.md
 
 
 
