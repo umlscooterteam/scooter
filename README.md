@@ -1,9 +1,25 @@
-# Scooter 2.0
+# Scooter 2.0 - ReadMe
+
+## Documentation Setup
+Initial Setup
+```shell
+$ pip3 install pytest
+$ pip3 install sphinx_rtd_theme
+$ pip3 install m2r2
+
+$ cd scooter
+$ mkdir docs
+$ cd docs
+$ sphinx-quickstart
+```
+* Add required modules to the conf.py file
+* Edit conf.py to support .md
+* Change theme to desired and set code highlight color
 
 ## deploy.sh
 
 ### Usage
-```
+```shell
 $ ./deploy.sh
 ```
 

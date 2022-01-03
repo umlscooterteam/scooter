@@ -1,4 +1,10 @@
 def main():
+    """
+    Simple Sphinx Testing
+
+    :return: NULL
+    :rtype: NULL
+    """
     print('Hi from scooter.')
 
 
