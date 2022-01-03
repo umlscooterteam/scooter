@@ -13,6 +13,7 @@ class GetCloudService(Node):
     def get_cloud_callback(self, request, response):
         """
         Stitches point-cloud together from realsense cameras
+
         :param request: no request msg for GetCloud
         :param response: The response to the service (pc2 stitched_cloud and success bool)
         :return: response
@@ -25,7 +26,7 @@ class GetCloudService(Node):
 
 
 def main():
-    rclpy.inti()
+    rclpy.init()
 
     get_cloud_service = GetCloudService()
 
