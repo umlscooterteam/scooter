@@ -15,6 +15,7 @@ class ScooterFSMNode(Node):
         # loop through states defined in scooter_fsm.states
         while rclpy.ok():
             state = state.run(self)
+            self.get_logger().info(f"Now in state: {state}")
 
 
 def main(args=None):
