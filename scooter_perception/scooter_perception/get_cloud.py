@@ -6,7 +6,7 @@ from rclpy.node import Node
 
 
 class GetCloudActionServer(Node):
-    """GetCloud service server node"""
+    """GetCloud action server node"""
     def __init__(self):
         super().__init__('get_cloud_action_server')
         self._action_server = ActionServer(
@@ -19,9 +19,10 @@ class GetCloudActionServer(Node):
     def get_cloud_callback(self, goal_handle):
         """
         Stitches point-cloud together from realsense cameras
-        :param goal_handle: the handle to the current goal (access current action msg fields)
+
+        :param: goal_handle: the handle to the current goal (access current action msg fields)
         :return: GetCloud action msg result (pc2 stitched_cloud and bool success)
-        :rtype: GetCloud.Result
+        :rtype: :class:`GetCloud.Result`
         """
         self.get_logger().info('Executing goal (GetCloud)...')
         feedback_msg = GetCloud.Feedback()
