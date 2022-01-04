@@ -10,7 +10,7 @@ class ScooterFSMNode(Node):
     def __init__(self):
         super().__init__('scooter_fsm')
 
-        self.clients = {
+        self._clients = {
             WaitForBegin: self.create_client(WaitForBegin, "wait_for_begin"),
             PickSelection: self.create_client(PickSelection, "pick_selection"),
             PickSelectionConfirm: self.create_client(PickSelectionConfirm, "pick_selection_confirm"),
@@ -51,6 +51,10 @@ class ScooterFSMNode(Node):
             # if we do not have a client defined for this service, exit
             self.get_logger().error(f"send_request called for invalid service type: {e}")
             return None
+
+    @clients.setter
+    def clients(self, value):
+        self._clients = value
 
 
 def main(args=None):
