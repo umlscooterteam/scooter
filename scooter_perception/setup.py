@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'get_cloud_service = scooter_perception.get_cloud:main'
+            'get_cloud_action_server = scooter_perception.get_cloud:main'
         ],
     },
 )

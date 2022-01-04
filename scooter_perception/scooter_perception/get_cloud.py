@@ -13,7 +13,7 @@ class GetCloudActionServer(Node):
             self,
             GetCloud,
             'get_cloud',
-            self.get_cloud_callback()
+            self.get_cloud_callback
         )
 
     def get_cloud_callback(self, goal_handle):
@@ -27,6 +27,7 @@ class GetCloudActionServer(Node):
         feedback_msg = GetCloud.Feedback()
         feedback_msg.percentage_complete = 0
 
+        # publish feedback
         self.get_logger().info('Feedback: {0}'.format(feedback_msg.percentage_complete))
         goal_handle.publish_feedback(feedback_msg)
 
@@ -39,14 +40,12 @@ class GetCloudActionServer(Node):
         return result
 
 
-def main():
-    rclpy.init()
+def main(args=None):
+    rclpy.init(args=args)
 
     get_cloud_action_server = GetCloudActionServer()
 
     rclpy.spin(get_cloud_action_server)
-
-    rclpy.shutdown()
 
 
 if __name__ == '__main__':
