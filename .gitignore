@@ -1,0 +1,7 @@
+.idea
+docs/build/
+venv
+.pytest_cache
+html
+*__pycache__/
+*.swap
