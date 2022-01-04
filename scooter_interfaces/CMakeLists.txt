@@ -13,10 +13,20 @@ find_package(sensor_msgs REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-rosidl_generate_interfaces(${PROJECT_NAME}
+set(action_files
   "action/GetCloud.action"
+)
+set(srv_files
   "srv/PickSelection.srv"
 )
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  ${action_files}
+  ${srv_files}
+  DEPENDENCIES sensor_msgs
+)
+
+ament_export_dependencies(rosidl_default_runtime)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
