@@ -35,7 +35,7 @@ class GetCloudActionServer(Node):
 
         # setting result
         result = GetCloud.Result()
-        result.stitched_cloud = None  # TODO
+        # result.stitched_cloud = None  # TODO
         result.success = True
         return result
 
