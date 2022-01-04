@@ -1,36 +1,50 @@
-from scooter_interfaces.srv import GetCloud
+from scooter_interfaces.action import GetCloud
 
 import rclpy
+from rclpy.action import ActionServer
 from rclpy.node import Node
 
 
-class GetCloudService(Node):
+class GetCloudActionServer(Node):
     """GetCloud service server node"""
     def __init__(self):
-        super().__init__('get_cloud_service')
-        self.srv = self.create_service(GetCloud, 'get_cloud', self.get_cloud_callback)
+        super().__init__('get_cloud_action_server')
+        self._action_server = ActionServer(
+            self,
+            GetCloud,
+            'get_cloud',
+            self.get_cloud_callback()
+        )
 
-    def get_cloud_callback(self, request, response):
+    def get_cloud_callback(self, goal_handle):
         """
         Stitches point-cloud together from realsense cameras
-
-        :param request: no request msg for GetCloud
-        :param response: The response to the service (pc2 stitched_cloud and success bool)
-        :return: response
-        :rtype: GetCloud.srv
+        :param goal_handle: the handle to the current goal (access current action msg fields)
+        :return: GetCloud action msg result (pc2 stitched_cloud and bool success)
+        :rtype: GetCloud.Result
         """
-        response.success = True
-        self.get_logger().info('Get Cloud Service Called')
+        self.get_logger().info('Executing goal (GetCloud)...')
+        feedback_msg = GetCloud.Feedback()
+        feedback_msg.percentage_complete = 0
 
-        return response
+        self.get_logger().info('Feedback: {0}'.format(feedback_msg.percentage_complete))
+        goal_handle.publish_feedback(feedback_msg)
+
+        goal_handle.succeed()  # shows goal was successful
+
+        # setting result
+        result = GetCloud.Result()
+        result.stitched_cloud = None  # TODO
+        result.success = True
+        return result
 
 
 def main():
     rclpy.init()
 
-    get_cloud_service = GetCloudService()
+    get_cloud_action_server = GetCloudActionServer()
 
-    rclpy.spin(get_cloud_service)
+    rclpy.spin(get_cloud_action_server)
 
     rclpy.shutdown()
 
