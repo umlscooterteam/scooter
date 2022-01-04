@@ -2,7 +2,7 @@ import rclpy
 from rclpy.node import Node
 
 from scooter_fsm.states import *
-from scooter_interfaces.srv import WaitForBegin, PickSelection, PickSelectionConfirm, Pick, HoldingObject, Basket
+# from scooter_interfaces.srv import WaitForBegin, PickSelection, PickSelectionConfirm, Pick, HoldingObject, Basket
 
 
 class ScooterFSMNode(Node):
