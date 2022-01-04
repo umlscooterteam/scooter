@@ -1,12 +1,14 @@
 from scooter_fsm.state import State
+# from scooter_interfaces.srv import WaitForBegin, PickSelection, PickSelectionConfirm, HoldingObject, Basket
 
 
 class DriveMode(State):
-    """Waiting for user to begin pick action
-
-    Calls service: `wait_for_begin`
-    """
     @staticmethod
     def run(node):
-        print(node.test_string)
+        """Drive mode, calls ``WaitForBegin`` service
+
+        :param: :class:`scooter_fsm.scooter_fsm.ScooterFSMNode` as context for this state
+        :return: The next state
+        :rtype: :class:`scooter_fsm.state.State`
+        """
         return DriveMode()

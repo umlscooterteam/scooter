@@ -1,5 +1,5 @@
 class State:
-    """Basic state class that states can inherit from"""
+    """A state"""
     @staticmethod
     def run(**kwargs):
         """
@@ -7,7 +7,7 @@ class State:
 
         :param: kwargs: Placeholder for any context that needs to be passed to the state
         :return: The next state
-        :rtype: :class: `state.State`
+        :rtype: :class:`scooter_fsm.state.State`
         """
         pass
 
