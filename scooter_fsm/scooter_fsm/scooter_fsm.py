@@ -34,8 +34,11 @@ class ScooterFSMNode(Node):
 
     def send_request(self, request):
         """
-        :param request: The message to send a request for
-        :return: The result from the service
+        Send a request given any service definition that is defined in `ScooterFSMNode`. If a client is not already
+        defined for given interface type, this function will log an error and no request will be made.
+
+        :param request: The request to send
+        :return: The result from the service, or `None` if a client is not defined for this interface type
         """
         try:
             # get client from type of message
@@ -53,6 +56,7 @@ class ScooterFSMNode(Node):
         except KeyError as e:
             # if we do not have a client defined for this service, exit
             self.get_logger().error(f"send_request called for invalid service type: {e}")
+            return None
 
 
 def main(args=None):
