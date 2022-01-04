@@ -27,8 +27,9 @@ class ScooterFSMNode(Node):
 
     def send_request(self, request):
         """
-        Send a request given any service definition that is defined in `ScooterFSMNode`. If a client is not already
-        defined for given interface type, this function will log an error and no request will be made.
+        Send a request given any service definition that is defined in :class:`scooter_fsm.scooter_fsm.ScooterFSMNode`.
+        If a client is not already defined for given interface type, this function will log an error and no request will
+        be made.
 
         :param request: The request to send
         :return: The result from the service, or `None` if a client is not defined for this interface type
