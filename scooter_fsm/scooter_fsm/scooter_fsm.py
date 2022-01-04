@@ -11,12 +11,10 @@ class ScooterFSMNode(Node):
         super().__init__('scooter_fsm')
 
         self.clients = {
-            GetCloud: self.create_client(GetCloud, "get_cloud"),
-            Segmentation: self.create_client(Segmentation, "segmentation"),
-            Pick: self.create_client(Pick, "pick"),
             WaitForBegin: self.create_client(WaitForBegin, "wait_for_begin"),
             PickSelection: self.create_client(PickSelection, "pick_selection"),
             PickSelectionConfirm: self.create_client(PickSelectionConfirm, "pick_selection_confirm"),
+            Pick: self.create_client(Pick, "pick"),
             HoldingObject: self.create_client(HoldingObject, "holding_object"),
             Basket: self.create_client(Basket, "basket")
         }
