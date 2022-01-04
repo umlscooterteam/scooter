@@ -1,9 +1,5 @@
 from scooter_fsm.state import State
-
-# scooter services
-# from scooter_interfaces.srv import GetCloud, Segmentation, Pick
-# UI services
-# from scooter_interfaces.srv import WaitForBegin, PickSelection, PickSelectionConfirm, HoldingObject, Basket
+from scooter_interfaces.srv import WaitForBegin, PickSelection, PickSelectionConfirm, HoldingObject, Basket
 
 
 class DriveMode(State):
@@ -13,5 +9,4 @@ class DriveMode(State):
     """
     @staticmethod
     def run(node):
-        node.send_request(wait_for_begin_request)
         return DriveMode()
