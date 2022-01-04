@@ -2,12 +2,7 @@ import rclpy
 from rclpy.node import Node
 
 from scooter_fsm.states import *
-
-# TODO: actually make these interfaces
-# # scooter services
-# from scooter_interfaces.srv import GetCloud, Segmentation, Pick
-# # UI services
-# from scooter_interfaces.srv import WaitForBegin, PickSelection, PickSelectionConfirm, HoldingObject, Basket
+from scooter_interfaces.srv import WaitForBegin, PickSelection, PickSelectionConfirm, Pick, HoldingObject, Basket
 
 
 class ScooterFSMNode(Node):
