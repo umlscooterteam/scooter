@@ -36,7 +36,7 @@ class ScooterFSMNode(Node):
         """
         try:
             # get client from type of message
-            client = self.client[type(request)]
+            client = self._clients[type(request)]
 
             # wait for the client to come up
             while not client.wait_for_service(timeout_sec=1.0):
