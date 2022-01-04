@@ -13,7 +13,7 @@ find_package(rosidl_default_generators REQUIRED)
 # find_package(<dependency> REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-  "srv/GetCloud.srv"
+  "action/GetCloud.action"
   "srv/PickSelection.srv"
 )
 

@@ -1,3 +1,5 @@
 ---
 sensor_msgs/PointCloud2 stitched_cloud
 bool success
+---
+uint8 percentage_complete
