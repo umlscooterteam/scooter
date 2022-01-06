@@ -34,7 +34,7 @@ class PickSelectionState(State):
         if result.transition == result.PICK:
             return PickSelectionConfirmState(), result
         elif result.transition == result.BACK:
-            return Drive(), result
+            return DriveState(), result
 
 
 class PickSelectionConfirmState(State):
@@ -54,9 +54,9 @@ class PickSelectionConfirmState(State):
         result = node.send_request(request)
 
         if result.transition == result.PICK:
-            return Pick(), result
+            return PickState(), result
         elif result.transition == result.BACK:
-            return Drive(), result
+            return DriveState(), result
 
 
 class PickState(State):
