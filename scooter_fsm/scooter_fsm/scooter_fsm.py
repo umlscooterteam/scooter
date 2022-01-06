@@ -1,8 +1,9 @@
 import rclpy
 from rclpy.node import Node
 
-from scooter_fsm.states import *
+import scooter_fsm.states
 # from scooter_interfaces.srv import WaitForBegin, PickSelection, PickSelectionConfirm, Pick, HoldingObject, Basket
+from scooter_interfaces.srv import PickSelection
 
 
 class ScooterFSMNode(Node):
@@ -11,18 +12,19 @@ class ScooterFSMNode(Node):
         super().__init__('scooter_fsm')
 
         self._clients = {
-            WaitForBegin: self.create_client(WaitForBegin, "wait_for_begin"),
+            # WaitForBegin: self.create_client(WaitForBegin, "wait_for_begin"),
             PickSelection: self.create_client(PickSelection, "pick_selection"),
-            PickSelectionConfirm: self.create_client(PickSelectionConfirm, "pick_selection_confirm"),
-            Pick: self.create_client(Pick, "pick"),
-            HoldingObject: self.create_client(HoldingObject, "holding_object"),
-            Basket: self.create_client(Basket, "basket")
+            # PickSelectionConfirm: self.create_client(PickSelectionConfirm, "pick_selection_confirm"),
+            # Pick: self.create_client(Pick, "pick"),
+            # HoldingObject: self.create_client(HoldingObject, "holding_object"),
+            # Basket: self.create_client(Basket, "basket")
         }
 
         # loop through states defined in scooter_fsm.states
-        state = DriveMode()
+        state = states.DriveState()
+        result = [None]
         while rclpy.ok():
-            state = state.run(self)
+            state, result = state.run(self, result)
             self.get_logger().info(f"Now in state: {state}")
 
     def send_request(self, request):
@@ -51,10 +53,6 @@ class ScooterFSMNode(Node):
             # if we do not have a client defined for this service, exit
             self.get_logger().error(f"send_request called for invalid service type: {e}")
             return None
-
-    @clients.setter
-    def clients(self, value):
-        self._clients = value
 
 
 def main(args=None):
