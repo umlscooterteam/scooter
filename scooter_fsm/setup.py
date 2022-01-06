@@ -20,8 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'scooter_fsm = scooter_fsm.scooter_fsm:main',
-            'test_wait_for_begin = scooter_fsm.test_wait_for_begin:main'
+            'scooter_fsm = scooter_fsm.scooter_fsm:main'
         ],
     },
 )
