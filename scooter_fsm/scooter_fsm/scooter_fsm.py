@@ -47,8 +47,8 @@ class ScooterFSMNode(Node):
                 self.get_logger().info("Service not available, trying again in 1s...")
 
             # call service, return result
-            future = self.cli.call_async(request)
-            self.spin_until_future_complete(future)
+            future = client.call_async(request)
+            rclpy.spin_until_future_complete(self, future)
             return future.result()
 
         except KeyError as e:
