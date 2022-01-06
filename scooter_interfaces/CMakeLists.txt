@@ -8,14 +8,31 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
+find_package(sensor_msgs REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-rosidl_generate_interfaces(${PROJECT_NAME}
+set(action_files
   "action/GetCloud.action"
-  "srv/PickSelection.srv"
+  "action/Segmentation.action"
 )
+set(srv_files
+  "srv/Basket.srv"
+  "srv/HoldingObject.srv"
+  "srv/Pick.srv"
+  "srv/PickSelection.srv"
+  "srv/PickSelectionConfirm.srv"
+  "srv/WaitForBegin.srv"
+)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  ${action_files}
+  ${srv_files}
+  DEPENDENCIES sensor_msgs
+)
+
+ament_export_dependencies(rosidl_default_runtime)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
