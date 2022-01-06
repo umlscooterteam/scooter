@@ -1,8 +1,8 @@
 import rclpy
 from rclpy.node import Node
 
-import scooter_fsm.states
-# from scooter_interfaces.srv import WaitForBegin, PickSelection, PickSelectionConfirm, Pick, HoldingObject, Basket
+from scooter_fsm import states
+from scooter_interfaces.srv import WaitForBegin, PickSelection, PickSelectionConfirm, Pick, HoldingObject, Basket
 from scooter_interfaces.srv import PickSelection
 
 
@@ -12,19 +12,19 @@ class ScooterFSMNode(Node):
         super().__init__('scooter_fsm')
 
         self._clients = {
-            WaitForBegin: self.create_client(WaitForBegin, "wait_for_begin"),
-            PickSelection: self.create_client(PickSelection, "pick_selection"),
-            PickSelectionConfirm: self.create_client(PickSelectionConfirm, "pick_selection_confirm"),
-            Pick: self.create_client(Pick, "pick"),
-            HoldingObject: self.create_client(HoldingObject, "holding_object"),
-            Basket: self.create_client(Basket, "basket")
+            type(WaitForBegin.Request()): self.create_client(WaitForBegin, "wait_for_begin"),
+            type(PickSelection.Request()): self.create_client(PickSelection, "pick_selection"),
+            type(PickSelectionConfirm.Request()): self.create_client(PickSelectionConfirm, "pick_selection_confirm"),
+            type(Pick.Request()): self.create_client(Pick, "pick"),
+            type(HoldingObject.Request()): self.create_client(HoldingObject, "holding_object"),
+            type(Basket.Request()): self.create_client(Basket, "basket")
         }
 
         # loop through states defined in scooter_fsm.states
         state = states.DriveState()
         result = None
         while rclpy.ok():
-            state, result = state.run(self, *result)
+            state, result = state.run(self, result)
             self.get_logger().info(f"Now in state: {state}")
 
     def send_request(self, request):
@@ -36,6 +36,7 @@ class ScooterFSMNode(Node):
         :param request: The request to send
         :return: The result from the service, or `None` if a client is not defined for this interface type
         """
+        self.get_logger().info(f"Type of request: {type(request)}")
         try:
             # get client from type of message
             client = self._clients[type(request)]
