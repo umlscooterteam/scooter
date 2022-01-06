@@ -6,10 +6,12 @@ class DriveState(State):
     @staticmethod
     def run(node, result):
         """
+        Drive mode, waiting for the begin button to be pressed. Calls the ``WaitForBegin`` service.
+
         :param node: :class:`scooter_fsm.scooter_fsm.ScooterFSMNode` as context for this state
         :param result: The result from the previous state
-        :return: The next state
-        :rtype: :class:`scooter_fsm.state.State`
+        :return: Tuple containing the next state :class:`scooter_fsm.state.State` and the result of this state
+        :rtype: tuple
         """
 
         request = WaitForBegin.Request()
@@ -22,10 +24,12 @@ class PickSelectionState(State):
     @staticmethod
     def run(node, result):
         """
+        User is selecting an object to pick. Calls the ``PickSelection`` service.
+
         :param node: :class:`scooter_fsm.scooter_fsm.ScooterFSMNode` as context for this state
         :param result: The result from the previous state
-        :return: The next state
-        :rtype: :class:`scooter_fsm.state.State`
+        :return: Tuple containing the next state :class:`scooter_fsm.state.State` and the result of this state
+        :rtype: tuple
         """
 
         request = PickSelection.Request()
@@ -41,10 +45,12 @@ class PickSelectionConfirmState(State):
     @staticmethod
     def run(node, result):
         """
+        User is confirming the object that they have selected. Calls the ``PickSelectionConfirm`` service.
+
         :param node: :class:`scooter_fsm.scooter_fsm.ScooterFSMNode` as context for this state
         :param result: The result from the previous state
-        :return: The next state
-        :rtype: :class:`scooter_fsm.state.State`
+        :return: Tuple containing the next state :class:`scooter_fsm.state.State` and the result of this state
+        :rtype: tuple
         """
 
         request = PickSelectionConfirm.Request()
@@ -63,10 +69,12 @@ class PickState(State):
     @staticmethod
     def run(node, result):
         """
+        ``Robot arm is picking the object. Calls the ``Pick`` service.
+
         :param node: :class:`scooter_fsm.scooter_fsm.ScooterFSMNode` as context for this state
         :param result: The result from the previous state
-        :return: The next state
-        :rtype: :class:`scooter_fsm.state.State`
+        :return: Tuple containing the next state :class:`scooter_fsm.state.State` and the result of this state
+        :rtype: tuple
         """
 
         request = Pick.Request()
@@ -86,10 +94,12 @@ class HoldingObjectState(State):
     @staticmethod
     def run(node, result):
         """
+        The robot arm is now holding an object. Calls the ``HoldingObject`` service.
+
         :param node: :class:`scooter_fsm.scooter_fsm.ScooterFSMNode` as context for this state
         :param result: The result from the previous state
-        :return: The next state
-        :rtype: :class:`scooter_fsm.state.State`
+        :return: Tuple containing the next state :class:`scooter_fsm.state.State` and the result of this state
+        :rtype: tuple
         """
 
         request = HoldingObject.Request()
@@ -105,10 +115,12 @@ class BasketState(State):
     @staticmethod
     def run(node, result):
         """
+        The robot arm is placing the object in the basket. Calls the ``Basket`` service.
+
         :param node: :class:`scooter_fsm.scooter_fsm.ScooterFSMNode` as context for this state
         :param result: The result from the previous state
-        :return: The next state
-        :rtype: :class:`scooter_fsm.state.State`
+        :return: Tuple containing the next state :class:`scooter_fsm.state.State` and the result of this state
+        :rtype: tuple
         """
 
         request = Basket.Request()
