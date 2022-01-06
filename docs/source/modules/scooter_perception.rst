@@ -12,6 +12,14 @@ scooter\_perception.get\_cloud module
    :undoc-members:
    :show-inheritance:
 
+scooter\_perception.segmentation module
+---------------------------------------
+
+.. automodule:: scooter_perception.segmentation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 
