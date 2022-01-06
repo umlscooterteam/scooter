@@ -3,6 +3,11 @@
 services
 ---
 ```
+Basket.srv
+
+---
+```
+```
 HoldingObject.srv
 
 ---
@@ -41,7 +46,11 @@ uint8 BACK=1
 uint8 transition
 int32[] center
 sensor_msgs/PointCloud2 stitched_cloud
+```
+```
+WaitForBegin.srv
 
+---
 ```
 
 actions

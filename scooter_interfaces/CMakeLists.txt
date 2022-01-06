@@ -18,10 +18,12 @@ set(action_files
   "action/Segmentation.action"
 )
 set(srv_files
+  "srv/Basket.srv"
   "srv/HoldingObject.srv"
   "srv/Pick.srv"
   "srv/PickSelection.srv"
   "srv/PickSelectionConfirm.srv"
+  "srv/WaitForBegin.srv"
 )
 
 rosidl_generate_interfaces(${PROJECT_NAME}
