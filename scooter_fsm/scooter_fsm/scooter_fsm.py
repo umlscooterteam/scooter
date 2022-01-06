@@ -12,19 +12,19 @@ class ScooterFSMNode(Node):
         super().__init__('scooter_fsm')
 
         self._clients = {
-            # WaitForBegin: self.create_client(WaitForBegin, "wait_for_begin"),
+            WaitForBegin: self.create_client(WaitForBegin, "wait_for_begin"),
             PickSelection: self.create_client(PickSelection, "pick_selection"),
-            # PickSelectionConfirm: self.create_client(PickSelectionConfirm, "pick_selection_confirm"),
-            # Pick: self.create_client(Pick, "pick"),
-            # HoldingObject: self.create_client(HoldingObject, "holding_object"),
-            # Basket: self.create_client(Basket, "basket")
+            PickSelectionConfirm: self.create_client(PickSelectionConfirm, "pick_selection_confirm"),
+            Pick: self.create_client(Pick, "pick"),
+            HoldingObject: self.create_client(HoldingObject, "holding_object"),
+            Basket: self.create_client(Basket, "basket")
         }
 
         # loop through states defined in scooter_fsm.states
         state = states.DriveState()
-        result = [None]
+        result = None
         while rclpy.ok():
-            state, result = state.run(self, result)
+            state, result = state.run(self, *result)
             self.get_logger().info(f"Now in state: {state}")
 
     def send_request(self, request):
