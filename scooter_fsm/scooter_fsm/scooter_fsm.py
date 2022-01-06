@@ -11,6 +11,7 @@ class ScooterFSMNode(Node):
     def __init__(self):
         super().__init__('scooter_fsm')
 
+        # dict to match type of request to a client in send_request() function
         self._clients = {
             type(WaitForBegin.Request()): self.create_client(WaitForBegin, "wait_for_begin"),
             type(PickSelection.Request()): self.create_client(PickSelection, "pick_selection"),
