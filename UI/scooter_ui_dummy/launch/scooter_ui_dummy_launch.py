@@ -13,4 +13,12 @@ def generate_launch_description():
             package='scooter_ui_dummy',
             executable='pick_selection_service_server',
         ),
+        Node(
+            package='scooter_ui_dummy',
+            executable='pick_selection_confirm_service_server',
+        ),
+        Node(
+            package='scooter_ui_dummy',
+            executable='holding_object_service_server',
+        ),
     ])

@@ -25,6 +25,8 @@ setup(
         'console_scripts': [
         	'wait_for_begin_service_server = scooter_ui_dummy.wait_for_begin:main',
         	'pick_selection_service_server = scooter_ui_dummy.pick_selection:main',
+        	'pick_selection_confirm_service_server = scooter_ui_dummy.pick_selection_confirm:main',
+        	'holding_object_service_server = scooter_ui_dummy.holding_object:main',
         ],
     },
 )
