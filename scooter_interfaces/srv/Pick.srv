@@ -1,0 +1,5 @@
+sensor_msgs/PointCloud2 sample_points
+sensor_msgs/PointCloud2 stitched_cloud
+int32[] center
+---
+bool success

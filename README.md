@@ -22,11 +22,11 @@ $ make html
 ### Updating Docs
 ```shell
 $ cd scooter/docs
-$ sphinx-autodoc ../scooter_PACKAGECHANGED/scooter_PACKAGECHANGED - source/modules
+$ sphinx-apidoc ../scooter_PACKAGECHANGED/scooter_PACKAGECHANGED -o source/modules
 $ cd source/modules
 $ vim modules.rst
 # Add the new .rst files name to the modules.rst file as shown
-$ cd ../..
+$ cd ..
 $ vim conf.py
 # append the syspath for any new module added as shown
 ```
@@ -43,12 +43,12 @@ $ sphinx-quickstart
 $ mkdir source
 $ cd source
 $ mkdir modules
-$ sphinx-autodoc ../../scooter_PACKAGENAME/scooter_PACKAGENAME -o modules
+$ sphinx-apidoc ../../scooter_PACKAGENAME/scooter_PACKAGENAME -o modules
 ```
 * Add required modules to the conf.py file
 * Edit conf.py to support .md
 * Change theme to desired and set code highlight color
-* Rerun autodoc and adjust modules.py by hand when updating
+* Rerun apidoc and adjust modules.py by hand when updating
 * Warning about duplicate contents is fine as long as it looks correct
 
 ---
