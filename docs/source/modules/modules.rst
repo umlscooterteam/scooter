@@ -7,3 +7,4 @@ Scooter Packages
    scooter_core
    scooter_fsm
    scooter_interfaces
+   scooter_ui_dummy
