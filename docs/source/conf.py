@@ -23,6 +23,7 @@ import sys
 sys.path.insert(0, os.path.abspath('../../scooter_core'))
 sys.path.insert(0, os.path.abspath('../../scooter_fsm'))
 sys.path.insert(0, os.path.abspath('../../UI/scooter_ui_dummy'))
+sys.path.insert(0, os.path.abspath('../../scooter_perception'))
 
 # -- Project information -----------------------------------------------------
 

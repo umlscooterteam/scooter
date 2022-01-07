@@ -8,3 +8,4 @@ Scooter Packages
    scooter_fsm
    scooter_interfaces
    scooter_ui_dummy
+   scooter_perception
