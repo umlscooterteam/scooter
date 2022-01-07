@@ -15,6 +15,8 @@ find_package(sensor_msgs REQUIRED)
 
 set(action_files
   "action/GetCloud.action"
+)
+set(srv_files
   "action/Segmentation.action"
 )
 set(srv_files
@@ -24,6 +26,12 @@ set(srv_files
   "srv/PickSelection.srv"
   "srv/PickSelectionConfirm.srv"
   "srv/WaitForBegin.srv"
+)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  ${action_files}
+  ${srv_files}
+  DEPENDENCIES sensor_msgs
 )
 
 rosidl_generate_interfaces(${PROJECT_NAME}
