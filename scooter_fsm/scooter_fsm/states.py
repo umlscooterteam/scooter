@@ -103,7 +103,7 @@ class HoldingObjectState(State):
         """
 
         request = HoldingObject.Request()
-        result = node.send_request()
+        result = node.send_request(request)
 
         if result.transition == result.BASKET:
             return BasketState(), result
@@ -124,6 +124,6 @@ class BasketState(State):
         """
 
         request = Basket.Request()
-        result = node.send_request()
+        result = node.send_request(request)
 
         return DriveState(), result
