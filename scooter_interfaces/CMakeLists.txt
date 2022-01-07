@@ -17,7 +17,21 @@ set(action_files
   "action/GetCloud.action"
 )
 set(srv_files
+  "action/Segmentation.action"
+)
+set(srv_files
+  "srv/Basket.srv"
+  "srv/HoldingObject.srv"
+  "srv/Pick.srv"
   "srv/PickSelection.srv"
+  "srv/PickSelectionConfirm.srv"
+  "srv/WaitForBegin.srv"
+)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  ${action_files}
+  ${srv_files}
+  DEPENDENCIES sensor_msgs
 )
 
 rosidl_generate_interfaces(${PROJECT_NAME}
