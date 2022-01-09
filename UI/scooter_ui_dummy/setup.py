@@ -10,9 +10,9 @@ setup(
     packages=[package_name],
     data_files=[
         ('share/ament_index/resource_index/packages',
-            ['resource/' + package_name]),
+         ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        (os.path.join('share', package_name), glob('launch/*_launch.py')),
+        (os.path.join('share', package_name), glob('launch/*.launch.py')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -23,10 +23,10 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-        	'wait_for_begin_service_server = scooter_ui_dummy.wait_for_begin:main',
-        	'pick_selection_service_server = scooter_ui_dummy.pick_selection:main',
-        	'pick_selection_confirm_service_server = scooter_ui_dummy.pick_selection_confirm:main',
-        	'holding_object_service_server = scooter_ui_dummy.holding_object:main',
+            'wait_for_begin_service_server = scooter_ui_dummy.wait_for_begin:main',
+            'pick_selection_service_server = scooter_ui_dummy.pick_selection:main',
+            'pick_selection_confirm_service_server = scooter_ui_dummy.pick_selection_confirm:main',
+            'holding_object_service_server = scooter_ui_dummy.holding_object:main',
         ],
     },
 )
