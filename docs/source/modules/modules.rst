@@ -9,3 +9,5 @@ Scooter Packages
    scooter_interfaces
    scooter_ui_dummy
    scooter_perception
+   scooter_perception
+   scooter_interfaces

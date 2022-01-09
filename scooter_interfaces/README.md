@@ -27,6 +27,16 @@ bool success
 ```
 PickSelection.srv
 
+---
+uint8 PICK=0
+uint8 BACK=1
+uint8 transition
+int32[] center
+sensor_msgs/PointCloud2 stitched_cloud
+```
+```
+PickSelectionConfirm.srv
+
 sensor_msgs/PointCloud2 stitched_cloud
 int32[] center
 ---
@@ -35,16 +45,6 @@ uint8 NO=1
 uint8 transition
 int32[] center
 sensor_msgs/PointCloud2 sample_points
-sensor_msgs/PointCloud2 stitched_cloud
-```
-```
-PickSelectionConfirm.srv
-
----
-uint8 PICK=0
-uint8 BACK=1
-uint8 transition
-int32[] center
 sensor_msgs/PointCloud2 stitched_cloud
 ```
 ```
