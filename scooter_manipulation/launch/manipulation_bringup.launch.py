@@ -12,7 +12,7 @@ def generate_launch_description():
     ur_bringup = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
             get_package_share_directory('ur_bringup'), 'launch'),
-            '/ur_moveit.launch.py']),
+            '/ur_control.launch.py']),
         launch_arguments={
             "ur_type": "ur5",
             "robot_ip": "yyy.yyy.yyy.yyy",

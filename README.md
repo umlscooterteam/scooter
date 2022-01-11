@@ -3,7 +3,15 @@
 [Latest Version of Docs](https://scooter.readthedocs.io/)
 
 --- 
+## Driver installation
+[Manipulation driver installation instructions](scooter_manipulation/README.md)
 
+---
+## Running
+```
+ros2 launch scooter_core scooter_core.launch.py
+```
+---
 ## Documentation Setup
 
 ### Requirements

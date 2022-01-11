@@ -23,7 +23,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'pick = scooter_manipulation.pick:main'
+            'pick = scooter_manipulation.pick:main',
+            'static_collision_object_publisher = scooter_manipulation.static_collision_object_publisher:main'
         ],
     },
 )
