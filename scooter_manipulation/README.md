@@ -7,7 +7,7 @@ This package is responsible for manipulation.
 ```sudo apt install ros-galactic-moveit```
 
 ### Install UR5 driver
-[https://github.com/UniversalRobots/Universal_Robots_ROS2_Driver]()
+[https://github.com/UniversalRobots/Universal_Robots_ROS2_Driver]([https://github.com/UniversalRobots/Universal_Robots_ROS2_Driver)
 
 We recommend installing this in a separate workspace as per the instructions in the driver's README.
 
