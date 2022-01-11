@@ -11,4 +11,12 @@ This package is responsible for manipulation.
 
 We recommend installing this in a separate workspace as per the instructions in the driver's README.
 
-It is possible that you will run into an error
+For some reason, I ended up with a build error that was solved by removing the overlaid ```control_msgs``` package. If
+this happens to you, simply delete it from your catkin workspace and it will fall back to the ```control_msgs``` package
+already installed on your system.
+
+You may also be missing some dependencies for some reason that can be installed as follows:
+
+```
+sudo apt install ros-galactic-ros2-control ros-galactic-ros2-controllers 
+```
