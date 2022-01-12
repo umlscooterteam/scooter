@@ -5,3 +5,4 @@ venv
 html
 *__pycache__/
 *.swap
+cmake-build-debug
