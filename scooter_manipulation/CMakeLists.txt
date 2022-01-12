@@ -28,24 +28,24 @@ find_package(tf2_eigen REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 
 set(THIS_PACKAGE_INCLUDE_DEPENDS
-        ament_cmake
-        rclcpp
-        rclcpp_action
-        tf2_geometry_msgs
-        tf2_ros
-        moveit_core
-        rviz_visual_tools
-        moveit_visual_tools
-        moveit_ros_planning_interface
-        interactive_markers
-        tf2_geometry_msgs
-        moveit_ros_planning
-        pluginlib
-        Eigen3
-        Boost
-        control_msgs
-        moveit_servo
-        )
+  ament_cmake
+  rclcpp
+  rclcpp_action
+  tf2_geometry_msgs
+  tf2_ros
+  moveit_core
+  rviz_visual_tools
+  moveit_visual_tools
+  moveit_ros_planning_interface
+  interactive_markers
+  tf2_geometry_msgs
+  moveit_ros_planning
+  pluginlib
+  Eigen3
+  Boost
+  control_msgs
+  moveit_servo
+)
 
 add_executable(static_collision_object_publisher src/static_collision_object_publisher.cpp)
 target_include_directories(static_collision_object_publisher PUBLIC
@@ -54,26 +54,32 @@ target_include_directories(static_collision_object_publisher PUBLIC
 target_compile_features(static_collision_object_publisher PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 
 ament_target_dependencies(static_collision_object_publisher
-        rclcpp
-        ament_cmake
-        rclcpp_action
-        tf2_geometry_msgs
-        tf2_ros
-        moveit_core
-        rviz_visual_tools
-        moveit_visual_tools
-        moveit_ros_planning_interface
-        interactive_markers
-        tf2_geometry_msgs
-        moveit_ros_planning
-        pluginlib
-        Eigen3
-        Boost
-        control_msgs
-        moveit_servo)
+  rclcpp
+  ament_cmake
+  rclcpp_action
+  tf2_geometry_msgs
+  tf2_ros
+  moveit_core
+  rviz_visual_tools
+  moveit_visual_tools
+  moveit_ros_planning_interface
+  interactive_markers
+  tf2_geometry_msgs
+  moveit_ros_planning
+  pluginlib
+  Eigen3
+  Boost
+  control_msgs
+  moveit_servo
+)
 
 install(TARGETS static_collision_object_publisher
   DESTINATION lib/${PROJECT_NAME})
+
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
