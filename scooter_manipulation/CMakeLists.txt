@@ -17,8 +17,8 @@ find_package(moveit_ros_planning_interface REQUIRED)
 find_package(moveit_ros_perception REQUIRED)
 find_package(moveit_servo REQUIRED)
 find_package(interactive_markers REQUIRED)
-find_package(rviz_visual_tools REQUIRED)
-find_package(moveit_visual_tools REQUIRED)
+#find_package(rviz_visual_tools REQUIRED)
+#find_package(moveit_visual_tools REQUIRED)
 find_package(geometric_shapes REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
@@ -34,8 +34,8 @@ set(THIS_PACKAGE_INCLUDE_DEPENDS
   tf2_geometry_msgs
   tf2_ros
   moveit_core
-  rviz_visual_tools
-  moveit_visual_tools
+#  rviz_visual_tools
+#  moveit_visual_tools
   moveit_ros_planning_interface
   interactive_markers
   tf2_geometry_msgs
@@ -60,8 +60,8 @@ ament_target_dependencies(static_collision_object_publisher
   tf2_geometry_msgs
   tf2_ros
   moveit_core
-  rviz_visual_tools
-  moveit_visual_tools
+#  rviz_visual_tools
+#  moveit_visual_tools
   moveit_ros_planning_interface
   interactive_markers
   tf2_geometry_msgs
@@ -78,7 +78,7 @@ install(TARGETS static_collision_object_publisher
 
 install(DIRECTORY
   launch
-  DESTINATION share/${PROJECT_NAME}
+  DESTINATION share/${PROJECT_NAME}/
 )
 
 if(BUILD_TESTING)
