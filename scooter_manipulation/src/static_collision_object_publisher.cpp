@@ -147,12 +147,14 @@ int main(int argc, char** argv)
   moveit::planning_interface::MoveGroupInterface move_group(move_group_node, PLANNING_GROUP);
   moveit::planning_interface::PlanningSceneInterface planning_scene_interface;
 
-  // TODO: make sure this is the absolute path on YOUR computer
-  vector<vector<string>> data = read_csv("/home/sam/dev_ws/src/scooter/scooter_manipulation/src/ur5_environment.csv");
+  // make sure to set parameter env_csv_file_path when launching this node
+  string env_csv_file_path;
+  move_group_node->get_parameter("env_csv", env_csv_file_path);
+  vector<vector<string>> data = read_csv(env_csv_file_path);
   vector<string> collision_obj;
-  for (int i = 1; i < data.size(); i++) {  // first row (row 0) is just headers so we can skip those
+  for (unsigned int i = 1; i < data.size(); i++) {  // first row (row 0) is just headers so we can skip those
       collision_obj.clear();
-      for (int j = 0; j < data[i].size(); j++) {
+      for (unsigned int j = 0; j < data[i].size(); j++) {
           collision_obj[j] = data[i][j];
           add_box_to_collision_environment(&move_group, &planning_scene_interface, collision_obj);
       }
