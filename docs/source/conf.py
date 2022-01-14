@@ -20,6 +20,12 @@ import sys
 # sys.path.insert(0, os.path.abspath('.'))
 # sys.path.insert(0, os.path.abspath('..'))
 # sys.path.insert(0, os.path.abspath('../..'))
+
+# For C++ Documentation
+sys.path.append("/home/patrick/.local/lib/python3.8/site-packages/breathe/")
+breathe_projects = {'Scooter': "/home/patrick/ws/work/colcon_ws/src/scooter/docs/source/doxygen/build/xml"}
+breathe_default_project = 'Scooter'
+
 sys.path.insert(0, os.path.abspath('../../scooter_core'))
 sys.path.insert(0, os.path.abspath('../../scooter_fsm'))
 sys.path.insert(0, os.path.abspath('../../scooter_perception'))
@@ -44,6 +50,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.autosectionlabel',
     'm2r2',
+    'breathe',
 ]
 
 source_suffix = ['.rst', '.md']

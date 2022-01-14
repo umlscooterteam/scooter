@@ -21,11 +21,6 @@ Welcome to Scooter 2.0's documentation!
    modules/modules.rst
 
 
-
-
-
-
-
 Indices and tables
 ==================
 
