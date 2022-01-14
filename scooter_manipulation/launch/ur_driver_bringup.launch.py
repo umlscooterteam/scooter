@@ -376,27 +376,44 @@ def launch_setup(context, *args, **kwargs):
         arguments=[initial_joint_controller, "-c", "/controller_manager", "--stopped"],
         condition=UnlessCondition(activate_joint_controller),
     )
-    
+
+    static_collision_object_publisher = Node(
+        package="scooter_manipulation",
+        executable="static_collision_object_publisher",
+        name="static_collision_object_publisher",
+        parameters=[
+            robot_description,
+            robot_description_semantic,
+            robot_description_kinematics,
+            robot_description_planning,
+            ompl_planning_pipeline_config,
+            trajectory_execution,
+            moveit_controllers,
+            planning_scene_monitor_parameters,
+        ]
+    )
     
     nodes_to_start = [
+        static_collision_object_publisher,
+
     	# following nodes from ur_control.launch
-	control_node,
-	dashboard_client_node,
-	robot_state_publisher_node,
-	joint_state_broadcaster_spawner,
-	io_and_status_controller_spawner,
-	speed_scaling_state_broadcaster_spawner,
-	force_torque_sensor_broadcaster_spawner,
-	forward_position_controller_spawner_stopped,
-	initial_joint_controller_spawner_stopped,
-	initial_joint_controller_spawner_started,
-	# following nodes from ur_moveit.launch
+        control_node,
+        dashboard_client_node,
+        robot_state_publisher_node,
+        joint_state_broadcaster_spawner,
+        io_and_status_controller_spawner,
+        speed_scaling_state_broadcaster_spawner,
+        force_torque_sensor_broadcaster_spawner,
+        forward_position_controller_spawner_stopped,
+        initial_joint_controller_spawner_stopped,
+        initial_joint_controller_spawner_started,
+        # following nodes from ur_moveit.launch
     	move_group_node,
     	mongodb_server_node,
     	static_tf,
     	servo_node,
-	# following nodes shared in both launch files
-	rviz_node
+        # following nodes shared in both launch files
+        rviz_node
     ]
     
     return nodes_to_start
