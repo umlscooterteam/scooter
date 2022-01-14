@@ -14,16 +14,22 @@
 import os
 # import sys
 import sys
-# sys.path.insert(0, os.path.abspath('.'))
-# print(os.path.abspath('../../scooter_core/scooter_core'))
-# sys.path.insert(0, os.path.abspath('../../scooter_core/scooter_core'))
-# sys.path.insert(0, os.path.abspath('.'))
-# sys.path.insert(0, os.path.abspath('..'))
-# sys.path.insert(0, os.path.abspath('../..'))
 
-# For C++ Documentation
-sys.path.append("/home/patrick/.local/lib/python3.8/site-packages/breathe/")
-breathe_projects = {'Scooter': "/home/patrick/ws/work/colcon_ws/src/scooter/docs/source/doxygen/build/xml"}
+# RTD Doxygen support
+import breathe
+import subprocess
+
+# For C/C++ Documentation
+# RTD
+read_the_docs_build = os.environ.get('READTHEDOCS', None) == 'True'
+
+if read_the_docs_build:
+    subprocess.call('cd doxygen; doxygen', shell=True)
+
+# General C/C++
+sys.path.append(breathe.__file__)
+doxy_xml_output = os.path.join(os.path.dirname(__file__), "doxygen/build/xml")
+breathe_projects = {'Scooter': doxy_xml_output}
 breathe_default_project = 'Scooter'
 
 sys.path.insert(0, os.path.abspath('../../scooter_core'))
