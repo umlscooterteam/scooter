@@ -74,10 +74,16 @@ ament_target_dependencies(static_collision_object_publisher
 )
 
 install(TARGETS static_collision_object_publisher
-  DESTINATION lib/${PROJECT_NAME})
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 install(DIRECTORY
   launch
+  DESTINATION share/${PROJECT_NAME}/
+)
+
+install(DIRECTORY
+  config
   DESTINATION share/${PROJECT_NAME}/
 )
 
