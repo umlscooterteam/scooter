@@ -132,6 +132,9 @@ int main(int argc, char **argv) {
   node_options.automatically_declare_parameters_from_overrides(true);
   auto move_group_node = rclcpp::Node::make_shared("static_collision_object_publisher");
 
+  // declare non-MoveIt parameters
+  move_group_node->declare_parameter<std::string>("env_csv", "env.csv");
+
   // create executor
   rclcpp::executors::SingleThreadedExecutor executor;
   executor.add_node(move_group_node);
@@ -145,6 +148,7 @@ int main(int argc, char **argv) {
   // make sure to set parameter env_csv_file_path when launching this node
   string env_csv_file_path;
   move_group_node->get_parameter("env_csv", env_csv_file_path);
+  RCLCPP_INFO(move_group_node->get_logger(), "CSV: %s", env_csv_file_path.c_str());
   vector<vector<string>> data = read_csv(env_csv_file_path);
   vector<string> collision_obj;
   for (unsigned int i = 1; i < data.size(); i++) {  // first row (row 0) is just headers so we can skip those
