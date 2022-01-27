@@ -106,7 +106,7 @@ def launch_setup(context, *args, **kwargs):
             " ",
             # DIFF
             "name:=",
-            ur_type,
+            "ur",
             " ",
             "script_filename:=",
             script_filename,
@@ -211,7 +211,7 @@ def launch_setup(context, *args, **kwargs):
     move_group_node = Node(
         package="moveit_ros_move_group",
         executable="move_group",
-        output="screen",
+        # output="screen",
         parameters=[
             robot_description,
             robot_description_semantic,
@@ -234,7 +234,7 @@ def launch_setup(context, *args, **kwargs):
             {"warehouse_host": "localhost"},
             {"warehouse_plugin": "warehouse_ros_mongo::MongoDatabaseConnection"},
         ],
-        output="screen",
+        # output="screen",
     )
     
     
@@ -247,7 +247,7 @@ def launch_setup(context, *args, **kwargs):
         condition=IfCondition(launch_rviz),
         executable="rviz2",
         name="rviz2_moveit",
-        output="log",
+        # output="log",
         arguments=["-d", rviz_config_file],
         parameters=[
             robot_description,
@@ -264,7 +264,7 @@ def launch_setup(context, *args, **kwargs):
         package="tf2_ros",
         executable="static_transform_publisher",
         name="static_transform_publisher",
-        output="log",
+        # output="log",
         arguments=["0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "world", "base_link"],
     )
 
@@ -280,10 +280,10 @@ def launch_setup(context, *args, **kwargs):
             robot_description,
             robot_description_semantic,
         ],
-        output={
-            "stdout": "screen",
-            "stderr": "screen",
-        },
+        # output={
+        #     "stdout": "screen",
+        #     "stderr": "screen",
+        # },
     )
     
     
@@ -302,10 +302,10 @@ def launch_setup(context, *args, **kwargs):
         package="controller_manager",
         executable="ros2_control_node",
         parameters=[robot_description, update_rate_config_file, initial_joint_controllers],
-        output={
-            "stdout": "screen",
-            "stderr": "screen",
-        },
+        # output={
+        #     "stdout": "screen",
+        #     "stderr": "screen",
+        # },
     )
 
     dashboard_client_node = Node(
@@ -313,7 +313,7 @@ def launch_setup(context, *args, **kwargs):
         condition=IfCondition(launch_dashboard_client),
         executable="dashboard_client",
         name="dashboard_client",
-        output="screen",
+        # output="screen",
         emulate_tty=True,
         parameters=[{"robot_ip": robot_ip}],
     )
@@ -321,7 +321,7 @@ def launch_setup(context, *args, **kwargs):
     robot_state_publisher_node = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
-        output="both",
+        # output="both",
         parameters=[robot_description],
     )
 
@@ -377,11 +377,20 @@ def launch_setup(context, *args, **kwargs):
         condition=UnlessCondition(activate_joint_controller),
     )
 
+
+    env_csv_path = PathJoinSubstitution([FindPackageShare("scooter_manipulation"), "config", "ur5_environment.csv"])
+    # env_csv_path = os.path.join(
+    #     get_package_share_directory('scooter_manipulation'),
+    #     'config',
+    #     'ur5_environment.csv'
+    # )
+
     static_collision_object_publisher = Node(
         package="scooter_manipulation",
         executable="static_collision_object_publisher",
         name="static_collision_object_publisher",
         parameters=[
+            {"env_csv": env_csv_path},
             robot_description,
             robot_description_semantic,
             robot_description_kinematics,
@@ -390,7 +399,11 @@ def launch_setup(context, *args, **kwargs):
             trajectory_execution,
             moveit_controllers,
             planning_scene_monitor_parameters,
-        ]
+        ],
+        output={
+            "stdout": "screen",
+            "stderr": "screen",
+        }
     )
     
     nodes_to_start = [
