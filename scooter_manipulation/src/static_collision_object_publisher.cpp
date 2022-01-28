@@ -72,7 +72,9 @@ vector<vector<string>> read_csv(string f_name) {
       w.erase(remove(w.begin(), w.end(), '\"'), w.end());  // get rid of double quotes
       row.push_back(w);
     }
-    data.push_back(row);
+    if (row.size() == 10){
+      data.push_back(row);
+    }
   }
   return data;
 }
