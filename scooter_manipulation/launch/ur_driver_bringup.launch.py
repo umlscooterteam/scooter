@@ -400,6 +400,7 @@ def launch_setup(context, *args, **kwargs):
             moveit_controllers,
             planning_scene_monitor_parameters,
         ],
+        prefix=["gnome-terminal -- gdb -ex run --args"],
         output={
             "stdout": "screen",
             "stderr": "screen",

@@ -90,6 +90,12 @@ void add_box_to_collision_environment(moveit::planning_interface::MoveGroupInter
   collision_object.header.frame_id = move_group->getPlanningFrame();
   collision_object.id = collision_object_data[0];  // name of object
 
+  std::cout << "adding shape: ";
+  for (string i: collision_object_data) {
+    std::cout << i << ' ';
+  }
+  std::cout << std::endl;
+
   // make box primitive
   shape_msgs::msg::SolidPrimitive primitive;
   primitive.type = primitive.BOX;
@@ -148,15 +154,12 @@ int main(int argc, char **argv) {
   // make sure to set parameter env_csv_file_path when launching this node
   string env_csv_file_path;
   move_group_node->get_parameter("env_csv", env_csv_file_path);
-  RCLCPP_INFO(move_group_node->get_logger(), "CSV: %s", env_csv_file_path.c_str());
+  RCLCPP_INFO(move_group_node->get_logger(), "Loading environment from CSV file: %s", env_csv_file_path.c_str());
+
+  // iterate through all objects, adding to collision environment
   vector<vector<string>> data = read_csv(env_csv_file_path);
-  vector<string> collision_obj;
   for (unsigned int i = 1; i < data.size(); i++) {  // first row (row 0) is just headers so we can skip those
-    collision_obj.clear();
-    for (unsigned int j = 0; j < data[i].size(); j++) {
-      collision_obj[j] = data[i][j];
-      add_box_to_collision_environment(&move_group, &planning_scene_interface, collision_obj);
-    }
+    add_box_to_collision_environment(&move_group, &planning_scene_interface, data[i]);
   }
 
   rclcpp::shutdown();
