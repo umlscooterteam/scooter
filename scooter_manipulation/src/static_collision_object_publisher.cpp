@@ -14,12 +14,15 @@
 #include <tf2/LinearMath/Quaternion.h>
 
 #include <string>
+#include <sstream>
 #include <iostream>
 #include <fstream>
 #include <cstring>
 
 using namespace std;
 
+static const rclcpp::Logger LOGGER = rclcpp::get_logger("static_collision_object_publisher");
+static const std::string PLANNING_GROUP = "ur_manipulator";
 const std::string WHITESPACE = " \n\r\t\f\v";
 
 string ltrim(const std::string &s) {
@@ -42,9 +45,11 @@ vector<vector<string>> read_csv(string f_name) {
   // Open an existing file
   //fin.open(f_name, ios::in);
   if (!fin.is_open()) {
-    cout << "Error opening file: " << f_name << endl;
+    RCLCPP_ERROR(LOGGER, "Couldn't open env file: %s", f_name.c_str());
     exit(1);
   }
+
+  RCLCPP_INFO(LOGGER, "Loading environment from CSV file: %s", f_name.c_str());
 
   // Read the Data from the file
   // as String Vector
@@ -92,11 +97,12 @@ void add_box_to_collision_environment(moveit::planning_interface::MoveGroupInter
   collision_object.header.frame_id = move_group->getPlanningFrame();
   collision_object.id = collision_object_data[0];  // name of object
 
-  std::cout << "adding shape: ";
+  // log the added primitive
+  stringstream shape_string;
   for (string i: collision_object_data) {
-    std::cout << i << ' ';
+    shape_string << i << ' ';
   }
-  std::cout << std::endl;
+  RCLCPP_ERROR(LOGGER, "Adding primitive: %s", shape_string.str().c_str());
 
   // make box primitive
   shape_msgs::msg::SolidPrimitive primitive;
@@ -149,14 +155,12 @@ int main(int argc, char **argv) {
   std::thread([&executor]() { executor.spin(); }).detach();
 
   // init MoveIt stuff
-  static const std::string PLANNING_GROUP = "ur_manipulator";
   moveit::planning_interface::MoveGroupInterface move_group(move_group_node, PLANNING_GROUP);
   moveit::planning_interface::PlanningSceneInterface planning_scene_interface;
 
   // make sure to set parameter env_csv_file_path when launching this node
   string env_csv_file_path;
   move_group_node->get_parameter("env_csv", env_csv_file_path);
-  RCLCPP_INFO(move_group_node->get_logger(), "Loading environment from CSV file: %s", env_csv_file_path.c_str());
 
   // iterate through all objects, adding to collision environment
   vector<vector<string>> data = read_csv(env_csv_file_path);
