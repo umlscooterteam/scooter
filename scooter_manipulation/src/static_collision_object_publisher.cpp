@@ -144,7 +144,7 @@ int main(int argc, char **argv) {
   rclcpp::init(argc, argv);
   rclcpp::NodeOptions node_options;
   node_options.automatically_declare_parameters_from_overrides(true);
-  auto move_group_node = rclcpp::Node::make_shared("static_collision_object_publisher");
+  auto move_group_node = rclcpp::Node::make_shared("static_collision_object_publisher", node_options);
 
   // declare non-MoveIt parameters
   move_group_node->declare_parameter<std::string>("env_csv", "env.csv");
