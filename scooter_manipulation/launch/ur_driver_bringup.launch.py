@@ -23,7 +23,7 @@ from ur_bringup.launch_common import load_yaml, load_yaml_abs
 
 
 def launch_setup(context, *args, **kwargs):
-    
+
     # Initialize Arguments
     ur_type = LaunchConfiguration("ur_type")
     robot_ip = LaunchConfiguration("robot_ip")
@@ -49,8 +49,8 @@ def launch_setup(context, *args, **kwargs):
     moveit_config_package = LaunchConfiguration("moveit_config_package")
     moveit_config_file = LaunchConfiguration("moveit_config_file")
     launch_servo = LaunchConfiguration("launch_servo")
-    
-    
+
+
     joint_limit_params = PathJoinSubstitution(
         [FindPackageShare(description_package), "config", ur_type, "joint_limits.yaml"]
     )
@@ -72,8 +72,8 @@ def launch_setup(context, *args, **kwargs):
     output_recipe_filename = PathJoinSubstitution(
         [FindPackageShare("ur_robot_driver"), "resources", "rtde_output_recipe.txt"]
     )
-    
-    
+
+
     robot_description_content = Command(
         [
             PathJoinSubstitution([FindExecutable(name="xacro")]),
@@ -136,14 +136,14 @@ def launch_setup(context, *args, **kwargs):
         ]
     )
     robot_description = {"robot_description": robot_description_content}
-    
-    
+
+
     # unique to ur_control.launch
     initial_joint_controllers = PathJoinSubstitution(
         [FindPackageShare(runtime_config_package), "config", controllers_file]
     )
-    
-    
+
+
     # MoveIt Configuration (unique to ur_moveit.launch)
     robot_description_semantic_content = Command(
         [
@@ -164,15 +164,15 @@ def launch_setup(context, *args, **kwargs):
         ]
     )
     robot_description_semantic = {"robot_description_semantic": robot_description_semantic_content}
-    
+
     kinematics_yaml = load_yaml("ur_moveit_config", "config/kinematics.yaml")
     robot_description_kinematics = {"robot_description_kinematics": kinematics_yaml}
 
     robot_description_planning = {
         "robot_description_planning": load_yaml_abs(str(joint_limit_params.perform(context)))
     }
-    
-    
+
+
     # Planning Configuration (unique to ur_moveit.launch)
     ompl_planning_pipeline_config = {
         "move_group": {
@@ -205,8 +205,8 @@ def launch_setup(context, *args, **kwargs):
         "publish_state_updates": True,
         "publish_transforms_updates": True,
     }
-    
-    
+
+
     # Start the actual move_group node/action server (unique to ur_moveit.launch)
     move_group_node = Node(
         package="moveit_ros_move_group",
@@ -236,8 +236,8 @@ def launch_setup(context, *args, **kwargs):
         ],
         # output="screen",
     )
-    
-    
+
+
     # rviz with moveit configuration (rviz config from ur_moveit.launch)
     rviz_config_file = PathJoinSubstitution(
         [FindPackageShare(moveit_config_package), "rviz", "view_robot.rviz"]
@@ -257,8 +257,8 @@ def launch_setup(context, *args, **kwargs):
             robot_description_planning,
         ],
     )
-    
-    
+
+
     # Static TF (unique to ur_moveit.launch)
     static_tf = Node(
         package="tf2_ros",
@@ -285,8 +285,8 @@ def launch_setup(context, *args, **kwargs):
         #     "stderr": "screen",
         # },
     )
-    
-    
+
+
     # define update rate (unique to ur_control.launch)
     update_rate_config_file = PathJoinSubstitution(
         [
@@ -295,8 +295,8 @@ def launch_setup(context, *args, **kwargs):
             ur_type.perform(context) + "_update_rate.yaml",
         ]
     )
-    
-    
+
+
     # Nodes to start from ur_control.launch
     control_node = Node(
         package="controller_manager",
@@ -406,9 +406,32 @@ def launch_setup(context, *args, **kwargs):
             "stderr": "screen",
         }
     )
-    
+
+    go_to_joint_config = Node(
+        package="scooter_manipulation",
+        executable="go_to_joint_config",
+        name="go_to_joint_config",
+        parameters=[
+            {"env_csv": env_csv_path},
+            robot_description,
+            robot_description_semantic,
+            robot_description_kinematics,
+            robot_description_planning,
+            ompl_planning_pipeline_config,
+            trajectory_execution,
+            moveit_controllers,
+            planning_scene_monitor_parameters,
+        ],
+        prefix=["gnome-terminal -- gdb -ex run --args"], # also set -g flag in add_compile_options to debug
+        output={
+            "stdout": "screen",
+            "stderr": "screen",
+        }
+    )
+
     nodes_to_start = [
         static_collision_object_publisher,
+        go_to_joint_config,
 
     	# following nodes from ur_control.launch
         control_node,
@@ -429,7 +452,7 @@ def launch_setup(context, *args, **kwargs):
         # following nodes shared in both launch files
         rviz_node
     ]
-    
+
     return nodes_to_start
 
 
@@ -589,6 +612,6 @@ def generate_launch_description():
         )
     )
 
-    return LaunchDescription(declared_arguments + [OpaqueFunction(function=launch_setup)])	    
+    return LaunchDescription(declared_arguments + [OpaqueFunction(function=launch_setup)])
 
 
