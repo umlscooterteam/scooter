@@ -102,7 +102,8 @@ void add_box_to_collision_environment(moveit::planning_interface::MoveGroupInter
   for (string i: collision_object_data) {
     shape_string << i << ' ';
   }
-  RCLCPP_ERROR(LOGGER, "Adding primitive: %s", shape_string.str().c_str());
+
+  RCLCPP_INFO(LOGGER, "Adding primitive: %s", shape_string.str().c_str());
 
   // make box primitive
   shape_msgs::msg::SolidPrimitive primitive;
@@ -147,7 +148,7 @@ int main(int argc, char **argv) {
   auto move_group_node = rclcpp::Node::make_shared("static_collision_object_publisher", node_options);
 
   // declare non-MoveIt parameters
-  move_group_node->declare_parameter<std::string>("env_csv", "env.csv");
+  // move_group_node->declare_parameter<std::string>("env_csv", "env.csv");
 
   // create executor
   rclcpp::executors::SingleThreadedExecutor executor;
