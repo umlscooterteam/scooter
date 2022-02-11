@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 project(scooter_manipulation)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
+  add_compile_options(-Wall -Wextra -Wpedantic -g) # add -g for debug
 endif()
 
 # find dependencies
@@ -26,8 +26,10 @@ find_package(pluginlib REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_eigen REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
+find_package(scooter_interfaces REQUIRED)
 
 set(THIS_PACKAGE_INCLUDE_DEPENDS
+  scooter_interfaces
   ament_cmake
   rclcpp
   rclcpp_action
@@ -48,10 +50,17 @@ set(THIS_PACKAGE_INCLUDE_DEPENDS
 )
 
 add_executable(static_collision_object_publisher src/static_collision_object_publisher.cpp)
+add_executable(go_to_joint_config src/go_to_joint_config.cpp)
+
 target_include_directories(static_collision_object_publisher PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
 target_compile_features(static_collision_object_publisher PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+
+target_include_directories(go_to_joint_config PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>)
+target_compile_features(go_to_joint_config PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 
 ament_target_dependencies(static_collision_object_publisher
   rclcpp
@@ -73,7 +82,32 @@ ament_target_dependencies(static_collision_object_publisher
   moveit_servo
 )
 
+ament_target_dependencies(go_to_joint_config
+  rclcpp
+  ament_cmake
+  rclcpp_action
+  tf2_geometry_msgs
+  tf2_ros
+  moveit_core
+  #  rviz_visual_tools
+  #  moveit_visual_tools
+  moveit_ros_planning_interface
+  interactive_markers
+  tf2_geometry_msgs
+  moveit_ros_planning
+  pluginlib
+  Eigen3
+  Boost
+  control_msgs
+  moveit_servo
+  scooter_interfaces
+)
+
 install(TARGETS static_collision_object_publisher
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(TARGETS go_to_joint_config
   DESTINATION lib/${PROJECT_NAME}
 )
 
