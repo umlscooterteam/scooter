@@ -422,7 +422,8 @@ def launch_setup(context, *args, **kwargs):
             moveit_controllers,
             planning_scene_monitor_parameters,
         ],
-        prefix=["gnome-terminal -- gdb -ex run --args"], # also set -g flag in add_compile_options to debug
+        # prefix=["gnome-terminal -- gdb -ex run --args"], # also set -g flag in add_compile_options to debug
+        # prefix=["valgrind"],  # also set -g flag in add_compile_options to debug
         output={
             "stdout": "screen",
             "stderr": "screen",
