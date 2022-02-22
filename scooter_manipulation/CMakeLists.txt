@@ -7,6 +7,7 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(Boost REQUIRED system filesystem date_time thread)
 find_package(ament_cmake REQUIRED)
@@ -21,6 +22,7 @@ find_package(interactive_markers REQUIRED)
 #find_package(moveit_visual_tools REQUIRED)
 find_package(geometric_shapes REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclpy REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(tf2_ros REQUIRED)
@@ -103,6 +105,8 @@ ament_target_dependencies(go_to_joint_config
   scooter_interfaces
 )
 
+# include_directories(include)
+
 install(TARGETS static_collision_object_publisher
   DESTINATION lib/${PROJECT_NAME}
 )
@@ -119,6 +123,11 @@ install(DIRECTORY
 install(DIRECTORY
   config
   DESTINATION share/${PROJECT_NAME}/
+)
+
+install(PROGRAMS
+  scripts/test_go_to_joint_config.py
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 if(BUILD_TESTING)
