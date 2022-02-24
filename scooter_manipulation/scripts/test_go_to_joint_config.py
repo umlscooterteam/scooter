@@ -3,6 +3,7 @@
 import rclpy
 from rclpy.action import ActionClient
 from rclpy.node import Node
+from action_msgs.msg import GoalStatus
 from scooter_interfaces.action import GoToJointConfig
 
 
@@ -24,17 +25,46 @@ class TestGoToJointConfig(Node):
 
         return self._action_client.send_goal_async(goal_msg)
 
+    def get_result(self):
+        self._action_client.wait_for_server()
+
+        return self._action_client.get_result_async()
+
+def send_goal_and_get_result(action_client, goal):
+    future = action_client.send_goal(goal)
+    rclpy.spin_until_future_complete(action_client, future)
+    goal_handle = future.result()
+
+    get_result_future = goal_handle.get_result_async()
+    rclpy.spin_until_future_complete(action_client, get_result_future)
+
+    result = get_result_future.result().result
+    status = get_result_future.result().status
+
+    return result, status
 
 def main(args=None):
     rclpy.init(args=args)
     action_client = TestGoToJointConfig()
 
-    while True:
-        future = action_client.send_goal(JointConfigs.fold_config)
-        rclpy.spin_until_future_complete(action_client, future)
+    while rclpy.ok():
+        action_client.get_logger().info(f"Going to fold config...")
+        result, status = send_goal_and_get_result(action_client, JointConfigs.fold_config)
+        if status == GoalStatus.STATUS_SUCCEEDED:
+            action_client.get_logger().info(f"Goal succeded! Result: {result}")
+        else:
+            action_client.get_logger().info('Goal failed with status code: {0}'.format(status))
 
-        future = action_client.send_goal(JointConfigs.travel_config)
-        rclpy.spin_until_future_complete(action_client, future)
+        action_client.get_logger().info(f"Going to travel config...")
+        result, status = send_goal_and_get_result(action_client, JointConfigs.travel_config)
+        if status == GoalStatus.STATUS_SUCCEEDED:
+            action_client.get_logger().info(f"Goal succeded! Result: {result}")
+        else:
+            action_client.get_logger().info('Goal failed with status code: {0}'.format(status))
+
+    action_client.destroy()
+    node.destroy_node()
+    rclpy.shutdown()
 
 
 if __name__ == "__main__":
