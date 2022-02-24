@@ -42,8 +42,6 @@ namespace go_to_joint_config_cpp {
      );
    }
 
-   // ~GTJCActionServer() override = default;
-
   private:
    // MoveIt stuff
    rclcpp::NodeOptions node_options_;
@@ -53,7 +51,6 @@ namespace go_to_joint_config_cpp {
 
    // action server stuff
    rclcpp_action::Server<GTJC>::SharedPtr action_server_;
-//   std::shared_ptr<rclcpp::Node> move_group_node_;
 
    rclcpp_action::GoalResponse handle_goal(
      const rclcpp_action::GoalUUID& uuid,
