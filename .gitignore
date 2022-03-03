@@ -6,3 +6,4 @@ html
 *__pycache__/
 *.swap
 cmake-build-debug
+docs/source/doxygen/build/
