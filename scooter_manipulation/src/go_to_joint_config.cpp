@@ -55,6 +55,7 @@ class GTJCActionServer : public rclcpp::Node {
   ) {
     RCLCPP_INFO(this->get_logger(), "Received goal request");
     (void) uuid;
+    (void) goal;
     return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
   }
 
