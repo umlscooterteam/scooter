@@ -30,6 +30,7 @@ class TestGoToJointConfig(Node):
 
         return self._action_client.get_result_async()
 
+
 def send_goal_and_get_result(action_client, goal):
     future = action_client.send_goal(goal)
     rclpy.spin_until_future_complete(action_client, future)
@@ -42,6 +43,7 @@ def send_goal_and_get_result(action_client, goal):
     status = get_result_future.result().status
 
     return result, status
+
 
 def main(args=None):
     rclpy.init(args=args)
