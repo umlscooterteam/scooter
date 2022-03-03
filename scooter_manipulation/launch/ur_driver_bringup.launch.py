@@ -211,7 +211,7 @@ def launch_setup(context, *args, **kwargs):
     move_group_node = Node(
         package="moveit_ros_move_group",
         executable="move_group",
-        # output="screen",
+        output={"both": "log"},
         parameters=[
             robot_description,
             robot_description_semantic,
@@ -229,6 +229,7 @@ def launch_setup(context, *args, **kwargs):
     mongodb_server_node = Node(
         package="warehouse_ros_mongo",
         executable="mongo_wrapper_ros.py",
+        output={"both": "log"},
         parameters=[
             {"warehouse_port": 33829},
             {"warehouse_host": "localhost"},
@@ -247,7 +248,7 @@ def launch_setup(context, *args, **kwargs):
         condition=IfCondition(launch_rviz),
         executable="rviz2",
         name="rviz2_moveit",
-        # output="log",
+        output={"both": "log"},
         arguments=["-d", rviz_config_file],
         parameters=[
             robot_description,
@@ -275,6 +276,7 @@ def launch_setup(context, *args, **kwargs):
         package="moveit_servo",
         condition=IfCondition(launch_servo),
         executable="servo_node_main",
+        output={"both": "log"},
         parameters=[
             servo_params,
             robot_description,
@@ -302,10 +304,7 @@ def launch_setup(context, *args, **kwargs):
         package="controller_manager",
         executable="ros2_control_node",
         parameters=[robot_description, update_rate_config_file, initial_joint_controllers],
-        # output={
-        #     "stdout": "screen",
-        #     "stderr": "screen",
-        # },
+        output={"both": "log"},
     )
 
     dashboard_client_node = Node(
@@ -313,7 +312,7 @@ def launch_setup(context, *args, **kwargs):
         condition=IfCondition(launch_dashboard_client),
         executable="dashboard_client",
         name="dashboard_client",
-        # output="screen",
+        output={"both": "log"},
         emulate_tty=True,
         parameters=[{"robot_ip": robot_ip}],
     )
@@ -321,25 +320,28 @@ def launch_setup(context, *args, **kwargs):
     robot_state_publisher_node = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
-        # output="both",
+        output={"both": "log"},
         parameters=[robot_description],
     )
 
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
+        output={"both": "log"},
         arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
     )
 
     io_and_status_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
+        output={"both": "log"},
         arguments=["io_and_status_controller", "-c", "/controller_manager"],
     )
 
     speed_scaling_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
+        output={"both": "log"},
         arguments=[
             "speed_scaling_state_broadcaster",
             "--controller-manager",
@@ -350,6 +352,7 @@ def launch_setup(context, *args, **kwargs):
     force_torque_sensor_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
+        output={"both": "log"},
         arguments=[
             "force_torque_sensor_broadcaster",
             "--controller-manager",
@@ -360,6 +363,7 @@ def launch_setup(context, *args, **kwargs):
     forward_position_controller_spawner_stopped = Node(
         package="controller_manager",
         executable="spawner.py",
+        output={"both": "log"},
         arguments=["forward_position_controller", "-c", "/controller_manager", "--stopped"],
     )
 
@@ -367,12 +371,14 @@ def launch_setup(context, *args, **kwargs):
     initial_joint_controller_spawner_started = Node(
         package="controller_manager",
         executable="spawner",
+        output={"both": "log"},
         arguments=[initial_joint_controller, "-c", "/controller_manager"],
         condition=IfCondition(activate_joint_controller),
     )
     initial_joint_controller_spawner_stopped = Node(
         package="controller_manager",
         executable="spawner",
+        output={"both": "log"},
         arguments=[initial_joint_controller, "-c", "/controller_manager", "--stopped"],
         condition=UnlessCondition(activate_joint_controller),
     )
@@ -389,6 +395,7 @@ def launch_setup(context, *args, **kwargs):
         package="scooter_manipulation",
         executable="static_collision_object_publisher",
         name="static_collision_object_publisher",
+        # output={"both": "log"},
         parameters=[
             {"env_csv": env_csv_path},
             robot_description,
@@ -401,16 +408,13 @@ def launch_setup(context, *args, **kwargs):
             planning_scene_monitor_parameters,
         ],
         # prefix=["gnome-terminal -- gdb -ex run --args"], # also set -g flag in add_compile_options to debug
-        output={
-            "stdout": "screen",
-            "stderr": "screen",
-        }
     )
 
     go_to_joint_config = Node(
         package="scooter_manipulation",
         executable="go_to_joint_config",
         name="go_to_joint_config",
+        # output={"both": "log"},
         parameters=[
             {"env_csv": env_csv_path},
             robot_description,
@@ -424,10 +428,6 @@ def launch_setup(context, *args, **kwargs):
         ],
         # prefix=["gnome-terminal -- gdb -ex run --args"], # also set -g flag in add_compile_options to debug
         # prefix=["valgrind"],  # also set -g flag in add_compile_options to debug
-        output={
-            "stdout": "screen",
-            "stderr": "screen",
-        }
     )
 
     nodes_to_start = [
