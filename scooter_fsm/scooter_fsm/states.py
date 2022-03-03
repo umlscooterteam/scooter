@@ -73,7 +73,7 @@ class PickState(State):
     @staticmethod
     def run(node, result):
         """
-        ``Robot arm is picking the object. Calls the ``Pick`` service.
+        Robot arm is picking the object. Calls the ``Pick`` service.
 
         :param node: :class:`scooter_fsm.scooter_fsm.ScooterFSMNode` as context for this state
         :param result: The result from the previous state

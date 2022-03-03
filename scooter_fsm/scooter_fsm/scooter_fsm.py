@@ -42,6 +42,7 @@ class ScooterFSMNode(Node):
         """
         Set joint configuration goal and move arm. Returns a goal handle so that you can wait for the goal to be
         reached with `get_joint_config_result(goal_handle)`.
+
         :param position: A list of joint positions ordered from the shoulder to the wrist.
         :return: goal handle
         """
@@ -60,6 +61,7 @@ class ScooterFSMNode(Node):
     def get_joint_config_result(self, goal_handle):
         """
         Wait for the joint configuration goal to finish, returning `True` if it succeeded and `False` if it failed.
+
         :param goal_handle: the goal handle returned by `go_to_joint_config()`
         :return: `True` if the arm successfully reached the goal configuration, otherwise `False`
         """
