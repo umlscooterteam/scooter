@@ -1,5 +1,6 @@
 from scooter_fsm.state import State
 from scooter_interfaces.srv import WaitForBegin, PickSelection, PickSelectionConfirm, Pick, HoldingObject, Basket
+from scooter_manipulation.joint_configs import JointConfigs
 
 
 class DriveState(State):
@@ -13,9 +14,12 @@ class DriveState(State):
         :return: Tuple containing the next state :class:`scooter_fsm.state.State` and the result of this state
         :rtype: tuple
         """
+        goal_handle = node.go_to_joint_config(JointConfigs.TRAVEL)
 
         request = WaitForBegin.Request()
         result = node.send_request(request)
+
+        success = node.get_joint_config_result(goal_handle)
 
         return PickSelectionState(), result
 
