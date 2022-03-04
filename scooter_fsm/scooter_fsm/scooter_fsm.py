@@ -80,7 +80,6 @@ class ScooterFSMNode(Node):
         :param request: The request to send
         :return: The result from the service, or `None` if a client is not defined for this interface type
         """
-        self.get_logger().info(f"Type of request: {type(request)}")
         try:
             # get client from type of message
             client = self._clients[type(request)]
