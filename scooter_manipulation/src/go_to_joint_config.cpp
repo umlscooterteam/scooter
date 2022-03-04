@@ -15,6 +15,10 @@
 #define PLANNING_GROUP "ur_manipulator"
 
 namespace go_to_joint_config_cpp {
+/**
+ *  ROS action server that plans and executes a trajectory to a given joint configuration for the UR5. Uses message of
+ *  type `scooter_interfaces/GoToJointConfig`.
+ */
 class GTJCActionServer : public rclcpp::Node {
  public:
   using GTJC = scooter_interfaces::action::GoToJointConfig;
