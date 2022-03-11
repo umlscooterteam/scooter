@@ -9,6 +9,20 @@ To bring up everything in this package including the UR5 driver, MoveIt, and the
 $ ros2 launch scooter_manipulation scooter_manipulation.launch.py
 ```
 
+## go_to_joint_configuration action server
+The ```go_to_joint_config``` action server listens for an action of type ```scooter_interfaces/GoToJointConfig```. Upon
+receiving a goal consisting of an array of joint positions, it will attempt to plan and execute a trajectory to the 
+given joint positions using the ```ur_manipulator``` move group. When the trajectory is done executing the action server
+will return a boolean representing whether the plan succeeded.
+
+### scooter_interfaces/GoToJointConfig
+```
+float64[] position
+---
+bool success
+---
+```
+
 ## static_collision_object_publisher
 ```static_collision_object_publisher``` is responsible for adding the static collision environment (sensors, scooter
 frame, etc.) to the move group's planning scene. Objects are specified as box primitives, which are described in a CSV
