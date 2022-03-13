@@ -8,3 +8,4 @@ Scooter Packages
    scooter_fsm
    scooter_perception
    scooter_interfaces
+   scooter_manipulation

@@ -3,23 +3,34 @@
 [Latest Version of Docs](https://scooter.readthedocs.io/)
 
 --- 
+## Driver installation
+[Manipulation driver installation instructions](scooter_manipulation/README.md)
 
+---
+## Running
+```
+ros2 launch scooter_core scooter_core.launch.py
+```
+---
 ## Documentation Setup
 
 ### Requirements
 ```shell
-$ pip3 install sphinx_rtd_theme
-$ pip3 install m2r2
+$ pip3 install -r docs/requirements.txt 
+$ sudo apt install doxygen doxygen-gui
 ```
 
 ### Building Docs
 ```shell
-$ cd scooter/docs
+$ cd scooter/docs/source/doxygen
+$ doxygen
+$ cd ../..
 $ make clean # If needed
 $ make html
 ```
 
-### Updating Docs
+
+### Updating Docs (Python Added)
 ```shell
 $ cd scooter/docs
 $ sphinx-apidoc ../scooter_PACKAGECHANGED/scooter_PACKAGECHANGED -o source/modules
@@ -33,6 +44,19 @@ $ vim conf.py
 
 * Warning about duplicate contents is fine as long as it looks correct
 * Warning about document or segment not beginning with a transition is fine as long as it looks correct
+ 
+### Updating Docs (C++ Added)
+```shell
+$ cd scooter/docs/source/doxygen
+$ doxywizard # Configure Doxyfile as needed for new files
+$ cd ../modules 
+$ vim modules.rst
+# Create a new RST file for a C++ module by hand using the commands linked below
+```
+
+* [.rst include directives](https://breathe.readthedocs.io/en/latest/directives.html)
+* [Doxygen Comment Style](https://breathe.readthedocs.io/en/latest/directives.html)
+* [Doxygen Special Commands](https://www.doxygen.nl/manual/commands.html)
 
 ### Initial Setup
 ```shell

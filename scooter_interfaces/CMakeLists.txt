@@ -16,6 +16,7 @@ find_package(sensor_msgs REQUIRED)
 set(action_files
   "action/GetCloud.action"
   "action/Segmentation.action"
+  "action/GoToJointConfig.action"
 )
 set(srv_files
   "srv/Basket.srv"

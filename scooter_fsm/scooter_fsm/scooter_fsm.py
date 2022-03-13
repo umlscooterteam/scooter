@@ -2,14 +2,19 @@ import rclpy
 from rclpy.node import Node
 
 from scooter_fsm import states
+from rclpy.action import ActionClient
+from action_msgs.msg import GoalStatus
 from scooter_interfaces.srv import WaitForBegin, PickSelection, PickSelectionConfirm, Pick, HoldingObject, Basket
 from scooter_interfaces.srv import PickSelection
+from scooter_interfaces.action import GoToJointConfig
 
 
 class ScooterFSMNode(Node):
     """Node that handles state transitions"""
     def __init__(self):
         super().__init__('scooter_fsm')
+
+        self.get_logger().info("Initializing...")
 
         # dict to match type of request to a client in send_request() function
         self._clients = {
@@ -21,12 +26,50 @@ class ScooterFSMNode(Node):
             type(Basket.Request()): self.create_client(Basket, "basket")
         }
 
+        self._joint_config_action_client = ActionClient(self, GoToJointConfig, "go_to_joint_config")
+
+        self.get_logger().info("Initialized!")
+
         # loop through states defined in scooter_fsm.states
         state = states.DriveState()
+        self.get_logger().info(f"Initial state: {state}")
         result = None
         while rclpy.ok():
             state, result = state.run(self, result)
             self.get_logger().info(f"Now in state: {state}")
+
+    def go_to_joint_config(self, position):
+        """
+        Set joint configuration goal and move arm. Returns a goal handle so that you can wait for the goal to be
+        reached with `get_joint_config_result(goal_handle)`.
+
+        :param position: A list of joint positions ordered from the shoulder to the wrist.
+        :return: goal handle
+        """
+        goal_msg = GoToJointConfig.Goal()
+        goal_msg.position = position
+
+        self._joint_config_action_client.wait_for_server()
+
+        future = self._joint_config_action_client.send_goal_async(goal_msg)
+
+        rclpy.spin_until_future_complete(self, future)
+
+        goal_handle = future.result()
+        return goal_handle
+
+    def get_joint_config_result(self, goal_handle):
+        """
+        Wait for the joint configuration goal to finish, returning `True` if it succeeded and `False` if it failed.
+
+        :param goal_handle: the goal handle returned by `go_to_joint_config()`
+        :return: `True` if the arm successfully reached the goal configuration, otherwise `False`
+        """
+        get_result_future = goal_handle.get_result_async()
+        rclpy.spin_until_future_complete(self, get_result_future)
+
+        result = get_result_future.result().result
+        return result
 
     def send_request(self, request):
         """
@@ -37,7 +80,6 @@ class ScooterFSMNode(Node):
         :param request: The request to send
         :return: The result from the service, or `None` if a client is not defined for this interface type
         """
-        self.get_logger().info(f"Type of request: {type(request)}")
         try:
             # get client from type of message
             client = self._clients[type(request)]
